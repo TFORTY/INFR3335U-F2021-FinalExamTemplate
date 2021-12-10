@@ -20,19 +20,20 @@ public class PlayerMovement : MonoBehaviour
     float jHorizontal = 0f;
     float jVertical = 0f;
 
-
+    float CameraAngle;
+    float CameraAngleSpeed = 2f;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        Application.targetFrameRate = 60;
     }
 
     // Update is called once per frame
     void Update()
     {
         MovePlayer();
-
+        CameraControls();
       
     }
 
@@ -51,5 +52,13 @@ public class PlayerMovement : MonoBehaviour
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * speed * Time.deltaTime);
         }
+    }
+
+    public void CameraControls()
+    {
+        CameraAngle += camStick.Horizontal * CameraAngleSpeed;
+
+        cam.position = transform.position + Quaternion.AngleAxis(CameraAngle, Vector3.up) * new Vector3(0f, 3.54f, -9.4f);
+        cam.rotation = Quaternion.LookRotation(transform.position + Vector3.up * 2f - cam.position, Vector3.up);
     }
 }
