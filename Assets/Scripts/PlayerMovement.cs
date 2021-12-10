@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     float jVertical = 0f;
 
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         MovePlayer();
+
+      
     }
 
     public void MovePlayer()
