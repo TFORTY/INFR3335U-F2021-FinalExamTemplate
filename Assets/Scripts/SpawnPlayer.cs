@@ -20,7 +20,7 @@ public class SpawnPlayer : MonoBehaviour
 
         if (temp.GetComponent<PhotonView>().IsMine)
         {
-            //temp.GetComponent<PlayerMovement>().SetJoysticks(Instantiate(cameraPrefab, randomPosition, Quaternion.identity));
+            temp.GetComponent<PlayerMovement>().SetJoysticks(Instantiate(cameraPrefab, randomPosition, Quaternion.identity));
         }
     }
 }

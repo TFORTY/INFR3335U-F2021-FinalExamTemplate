@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using Photon.Pun;
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
@@ -16,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public Joystick camStick;
 
     Vector3 direction;
+    Vector3 moveDir;
 
     float jHorizontal = 0f;
     float jVertical = 0f;
@@ -24,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
     float CameraAngleSpeed = 2f;
 
     public CinemachineFreeLook cinCam;
+
+    public PhotonView view;
 
     // Start is called before the first frame update
     void Start()
@@ -34,9 +38,14 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if (view.IsMine)
+        //{
+            //MovePlayer();
+            //CameraControls();
+        //}
+
         MovePlayer();
-        CameraControls();
-      
+        CameraControls();  
     }
 
     public void MovePlayer()
@@ -51,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
-            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * speed * Time.deltaTime);
         }
     }
@@ -65,5 +74,28 @@ public class PlayerMovement : MonoBehaviour
 
         cinCam.m_XAxis.Value += camStick.Horizontal * CameraAngleSpeed;
         //cinCam.m_YAxis.Value += camStick.Vertical * CameraAngleSpeed;
+    }
+
+    public void SetJoysticks(GameObject camera)
+    {
+        Joystick[] tempJoystickList = camera.GetComponentsInChildren<Joystick>();
+
+        foreach(Joystick temp in tempJoystickList)
+        {
+            if (temp.tag == "Joystick Movement")
+            {
+                moveStick = temp;
+            }
+            else if (temp.tag == "Joystick Camera")
+            {
+                camStick = temp;
+            }
+        }
+
+        cam = camera.transform;
+
+        cinCam = cam.GetComponentInChildren<CinemachineFreeLook>();
+        cinCam.Follow = GameObject.FindWithTag("Player").transform;
+        cinCam.LookAt = GameObject.Find("Ribs").transform;
     }
 }

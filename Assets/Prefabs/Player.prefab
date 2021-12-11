@@ -255,6 +255,8 @@ MonoBehaviour:
   turnSmoothTime: 0.1
   moveStick: {fileID: 2401204529047437431}
   camStick: {fileID: 1345075254297918492}
+  cinCam: {fileID: 0}
+  view: {fileID: 0}
 --- !u!1 &1011084313713304877
 GameObject:
   m_ObjectHideFlags: 0
@@ -1960,6 +1962,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Movement Joystick
       objectReference: {fileID: 0}
+    - target: {fileID: 2929252283123773939, guid: aaa2c939c0359ac4dbce3f49e8b90252,
+        type: 3}
+      propertyPath: m_TagString
+      value: Joystick Movement
+      objectReference: {fileID: 0}
     - target: {fileID: 2929252285020698103, guid: aaa2c939c0359ac4dbce3f49e8b90252,
         type: 3}
       propertyPath: m_Sprite
@@ -2123,6 +2130,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Camera Joystick
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929252283123773939, guid: aaa2c939c0359ac4dbce3f49e8b90252,
+        type: 3}
+      propertyPath: m_TagString
+      value: Joystick Camera
       objectReference: {fileID: 0}
     - target: {fileID: 2929252285020698103, guid: aaa2c939c0359ac4dbce3f49e8b90252,
         type: 3}
