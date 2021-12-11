@@ -38,14 +38,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (view.IsMine)
-        //{
-            //MovePlayer();
-            //CameraControls();
-        //}
-
-        MovePlayer();
-        CameraControls();  
+        if (view.IsMine)
+        {
+            MovePlayer();
+            CameraControls();
+        }
     }
 
     public void MovePlayer()
@@ -73,7 +70,6 @@ public class PlayerMovement : MonoBehaviour
         cam.rotation = Quaternion.LookRotation(transform.position + Vector3.up * 2f - cam.position, Vector3.up);
 
         cinCam.m_XAxis.Value += camStick.Horizontal * CameraAngleSpeed;
-        //cinCam.m_YAxis.Value += camStick.Vertical * CameraAngleSpeed;
     }
 
     public void SetJoysticks(GameObject camera)
