@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-//ADD PUN THINGS
+using Photon.Pun;
+using Photon.Realtime;
 
-public class Launcher : MonoBehaviour//MonoBehaviourPunCallBacks
+public class Launcher : MonoBehaviourPunCallbacks
 {
     public GameObject lobbyPanel;
     public GameObject roomPanel;
@@ -15,6 +16,7 @@ public class Launcher : MonoBehaviour//MonoBehaviourPunCallBacks
 
     public Text roomName;
     public Text playerCount;
+    public Text errorText;
 
     public GameObject playerListing;
     public Transform playerListContent;
@@ -26,19 +28,63 @@ public class Launcher : MonoBehaviour//MonoBehaviourPunCallBacks
     {
         lobbyPanel.SetActive(true);
         roomPanel.SetActive(false);
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
 
-    public void CreateRoom() { }
+    public void CreateRoom() {
+        if (string.IsNullOrEmpty(createInput.text))
+            return;
+        PhotonNetwork.CreateRoom(createInput.text);
+    }
 
-    public void JoinRoom() { }
+    public void JoinRoom() {
+        PhotonNetwork.JoinRoom(joinInput.text);
+    }
 
-    //public override void OnJoinedRoom() { }
+    public override void OnJoinedRoom() {
+        lobbyPanel.SetActive(false);
+        roomPanel.SetActive(true);
 
-    public void OnClickLeaveRoom() { }
+        roomName.text = PhotonNetwork.CurrentRoom.Name;
 
-    //public override void OnLeftRoom() { }
+        Player[] players = PhotonNetwork.PlayerList;
 
-    //public override void OnPlayerEnteredRoom(Player newPlayer) { }
+        playerCount.text = "" + players.Length;
 
-    public void OnClickStartGame() { }
+        for (int i = 0; i < players.Length; ++i)
+        {
+            Instantiate(playerListing, playerListContent).GetComponent<PlayerListing>().SetPlayerInfo(players[i]);
+
+            if (i == 0)
+            {
+                startButton.interactable = true;
+            }
+            else
+            {
+                startButton.interactable = false;
+            }
+        }
+    }
+
+    public override void OnCreateRoomFailed(short returnCode, string message)
+    {
+        errorText.text = message;
+        Debug.Log("Error Creating Room" + message);
+    }
+
+    public void OnClickLeaveRoom() {
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public override void OnLeftRoom() {
+        SceneManager.LoadScene("Loading");
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer) {
+        Instantiate(playerListing, playerListContent).GetComponent<PlayerListing>().SetPlayerInfo(newPlayer);
+    }
+
+    public void OnClickStartGame() {
+        PhotonNetwork.LoadLevel("Arena");
+    }
 }
