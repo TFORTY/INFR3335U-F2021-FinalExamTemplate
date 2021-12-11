@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
     float CameraAngle;
     float CameraAngleSpeed = 2f;
 
-    public CinemachineFreeLook cinCam;
+    CinemachineFreeLook cinCam;
 
     public PhotonView view;
 

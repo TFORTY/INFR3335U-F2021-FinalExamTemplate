@@ -974,7 +974,6 @@ MonoBehaviour:
   turnSmoothTime: 0.1
   moveStick: {fileID: 0}
   camStick: {fileID: 0}
-  cinCam: {fileID: 0}
   view: {fileID: 6369435659824640696}
 --- !u!114 &6369435659824640696
 MonoBehaviour:
