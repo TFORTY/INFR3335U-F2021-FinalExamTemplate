@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Cinemachine;
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
 
     float CameraAngle;
     float CameraAngleSpeed = 2f;
+
+    public CinemachineFreeLook cinCam;
 
     // Start is called before the first frame update
     void Start()
@@ -60,5 +62,8 @@ public class PlayerMovement : MonoBehaviour
 
         cam.position = transform.position + Quaternion.AngleAxis(CameraAngle, Vector3.up) * new Vector3(0f, 2f, -4f);
         cam.rotation = Quaternion.LookRotation(transform.position + Vector3.up * 2f - cam.position, Vector3.up);
+
+        cinCam.m_XAxis.Value += camStick.Horizontal * CameraAngleSpeed;
+        //cinCam.m_YAxis.Value += camStick.Vertical * CameraAngleSpeed;
     }
 }
