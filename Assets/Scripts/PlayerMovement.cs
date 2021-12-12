@@ -63,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void CameraControls()
     {
+        // Gets cinemachine's x-axis value and moves based on the camera joystick's horizontal input
         cinCam.m_XAxis.Value += camStick.Horizontal * CameraAngleSpeed;
     }
 
@@ -84,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
 
         cam = camera.transform;
 
+        // Tells the cinemachine camera what the follow and look at targets are when instantiated
         cinCam = cam.GetComponentInChildren<CinemachineFreeLook>();
         cinCam.Follow = GameObject.FindGameObjectWithTag("Player").transform;
         cinCam.LookAt = GameObject.FindGameObjectWithTag("LookAtTarget").transform;
