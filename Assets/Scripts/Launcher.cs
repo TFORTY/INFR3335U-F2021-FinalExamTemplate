@@ -49,7 +49,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
         Player[] players = PhotonNetwork.PlayerList;
 
-        playerCount.text = "" + players.Length;
+        playerCount.text = "" + players.Length + " of 4";
 
         for (int i = 0; i < players.Length; ++i)
         {
