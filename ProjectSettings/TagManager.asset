@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Joystick Movement
   - Joystick Camera
+  - LookAtTarget
   layers:
   - Default
   - TransparentFX

@@ -187,10 +187,10 @@ MonoBehaviour:
     type: 3}
   cameraPrefab: {fileID: 2742408090322727507, guid: ba7e98755ea231a4e971a49a34a4200e,
     type: 3}
-  minX: -2
-  maxX: 14
-  minZ: -20
-  maxZ: 9
+  minX: -0.5
+  maxX: 12
+  minZ: -18
+  maxZ: 7
 --- !u!4 &818490781
 Transform:
   m_ObjectHideFlags: 0

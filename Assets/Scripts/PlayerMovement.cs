@@ -22,7 +22,6 @@ public class PlayerMovement : MonoBehaviour
     float jHorizontal = 0f;
     float jVertical = 0f;
 
-    float CameraAngle;
     float CameraAngleSpeed = 2f;
 
     CinemachineFreeLook cinCam;
@@ -64,11 +63,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void CameraControls()
     {
-        CameraAngle += camStick.Horizontal * CameraAngleSpeed;
-
-        cam.position = transform.position + Quaternion.AngleAxis(CameraAngle, Vector3.up) * new Vector3(0f, 2f, -4f);
-        cam.rotation = Quaternion.LookRotation(transform.position + Vector3.up * 2f - cam.position, Vector3.up);
-
         cinCam.m_XAxis.Value += camStick.Horizontal * CameraAngleSpeed;
     }
 
@@ -91,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
         cam = camera.transform;
 
         cinCam = cam.GetComponentInChildren<CinemachineFreeLook>();
-        cinCam.Follow = GameObject.FindWithTag("Player").transform;
-        cinCam.LookAt = GameObject.Find("Ribs").transform;
+        cinCam.Follow = GameObject.FindGameObjectWithTag("Player").transform;
+        cinCam.LookAt = GameObject.FindGameObjectWithTag("LookAtTarget").transform;
     }
 }
